@@ -12,37 +12,61 @@ body, html {
 margin: 0;
 }
 
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 .main {
     display: flex;
     width: calc(100vw - (100vw - 100%));
-    height: calc(100vh - 98px);
+    height: calc(100vh -  104px);
 }
 
 .header {
     .logo {
-        font-size: 50px;
+        font-size: 3.125rem;
+        font-family: 'Lato', sans-serif;
+        display: flex;
+        span{
+            padding-left: 8px;
+        }
     }
 }
 
 .header {
     padding: 20px;
-    background-color: lightgrey;
-}
-
-.logo-bar {
-    background-color: blue;
+    background-color: #991b1b;
+    color: white;
 }
 
 .nav {
-    background-color: black;
+    background-color: #dc2626;
+    font-size: $font-size-xl;
     color: white;
     width: 20%;
 }
 
-.content {
-    background-color: beige;
+.inbox {
+    background-color: #fef2f2;
+    padding: 10px 20px;
+    width: 80%;
 }
 
 ul {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    li {
+        display: flex;
+        span {
+            padding-left: 8px;
+        }
+    }
+}
+
+#projects-li {
+    border-top: dashed white 5px;
+    width: 90%;
+    padding-top: 20px;
 }

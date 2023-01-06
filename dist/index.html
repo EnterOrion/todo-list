@@ -7,22 +7,42 @@
     <link rel="stylesheet" href="style.css">
     <title>To-do List</title>
     <script src="main.js" defer></script>
+    <link rel="icon" href="images/portapapeles.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
-        <div class="logo">To-do List</div>
+        <div class="logo">
+            <img src="images/edit.png" alt="checkmark">
+            <span>To-do List</span></div>
     </header>
     <main class="main">
         <nav class="nav">
         <ul>
-            <li>Home</li>
-            <li>Today</li>
-            <li>+ Task</li>
-            <li>Projects</li>
-            <li>+ New Project</li>
+            <li>
+            <img src="images/home.png" alt="home">
+                <span>Home</span>
+            </li>
+            <li>
+            <img src="images/calendar.png" alt="calendar">
+                <span>Today</span>
+            </li>
+            <li>
+            <img src="images/plus.png" alt="plus sign">
+                <span>Task</span>
+            </li>
+            <li id="projects-li">
+            <img src="images/dashboard.png" alt="project icon">
+                <span>Projects</span>
+            </li>
+            <li>
+            <img src="images/plus.png" alt="plus sign">
+                <span>New Project</span>
+            </li>
         </ul>
         </nav>
         <div class="inbox">
+            <h1>Projects</h1>
             <p>This is where the projects will go.</p>
         </div>
     </main>
