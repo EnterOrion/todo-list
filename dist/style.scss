@@ -98,7 +98,7 @@ li:hover {
     background-color: #fff;
   }
 
-#taskForm {
+#taskForm, #projectForm {
     display: none;
     border: 3px solid #999999;
     transform: translate(-50%, 5%);
@@ -108,8 +108,18 @@ li:hover {
     z-index: 9;
 }
 
-.formContainer {
+.formContainer, .formProjContainer {
     max-width: 300px;
     padding: 20px;
     background-color: rgb(184, 164, 255);
   }
+
+  .formContainer input[type=text],
+  .formProjContainer input[type=text]
+   {
+    width: 90%;
+    padding: 15px;
+    margin: 5px 0 10px 0;
+    border: none;
+    background: #eee;
+  } 

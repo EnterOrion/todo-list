@@ -37,7 +37,7 @@
             </li>
             <li>
             <img src="images/plus.png" alt="plus sign">
-                <span>New Project</span>
+                <span id="newProject">New Project</span>
             </li>
         </ul>
         </nav>
@@ -58,8 +58,33 @@
                 <strong>Description</strong>
             </label>
             <input type="text" id="description" placeholder="Description" name="description">
+            <label for="Due date">
+                <strong>Due date</strong>
+            </label>
+            <input type="text" id="dueDate" placeholder="Due date" name="dueDate">
+            <label for="Project category">
+                <strong>Project</strong>
+            </label>
+            <input type="text" id="projectCategory" placeholder="Project" name="projectCategory">
+            <label for="priority">
+                <strong>Priority</strong>
+            </label>
+            <input type="text" id="priority" placeholder="Priority" name="priority">
             <button type="submit" class="btn">Add task</button>
-            <button type="button" id="btn cancel" onclick="closeTaskForm()">Cancel</button>
+            <button type="button" id="btn cancel">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <div id="projectPopup">
+        <div id="projectForm">
+            <form action="/action_page.php" class="formProjContainer">
+            <h2>Create your project</h2>
+            <label for="title">
+                <strong>Title</strong>
+            </label>
+            <input type="text" id="titleProj" placeholder="Title of Project" name="titleProj" required>
+            <button type="submit" class="btn">Add Project</button>
+            <button type="button" id="btn cancel proj">Cancel</button>
             </form>
         </div>
     </div>

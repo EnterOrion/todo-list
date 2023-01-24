@@ -1,7 +1,8 @@
 import homePage from "./functions/home"
 import todayPage from "./functions/today"
-import projPage from "./functions/projManager"
+import { projPage,  openProjForm, closeProjForm} from "./functions/projManager"
 import {closeTaskForm, openTaskForm} from "./functions/task"
+
 
 const startUp = function() {
     const todayNav = document.getElementById("today");
@@ -18,6 +19,12 @@ const startUp = function() {
 
     const cancelBtn = document.getElementById("btn cancel");
     cancelBtn.addEventListener("click", closeTaskForm);
+
+    const projectBtn = document.getElementById("newProject");
+    projectBtn.addEventListener("click", openProjForm);
+
+    const cancelProjBtn = document.getElementById("btn cancel proj");
+    cancelProjBtn.addEventListener("click", closeProjForm);
 
     homePage();
 }

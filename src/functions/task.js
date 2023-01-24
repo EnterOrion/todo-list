@@ -1,12 +1,10 @@
 
-const todoTask = (name, details, date, project, concern, additional, label) => { 
+const todoTask = (name, details, date, project, concern) => { 
     return {title: name,
         description: details,
         dueDate : date,
         projectName: project,
-        priority: concern,
-        notes: additional,
-        label: label
+        priority: concern
     }
 }
 
