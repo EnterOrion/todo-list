@@ -21,19 +21,19 @@
         <ul>
             <li>
             <img src="images/home.png" alt="home">
-                <span>Home</span>
+                <span id="home">Home</span>
             </li>
             <li>
             <img src="images/calendar.png" alt="calendar">
-                <span>Today</span>
+                <span id="today">Today</span>
             </li>
             <li>
             <img src="images/plus.png" alt="plus sign">
-                <span>Task</span>
+                <span id="newTask">New Task</span>
             </li>
             <li id="projects-li">
             <img src="images/dashboard.png" alt="project icon">
-                <span>Projects</span>
+                <span id="projects">Projects</span>
             </li>
             <li>
             <img src="images/plus.png" alt="plus sign">
@@ -41,12 +41,27 @@
             </li>
         </ul>
         </nav>
-        <div class="inbox">
-            <h1>Projects</h1>
-            <p>This is where the projects will go.</p>
+        <div id="inbox">
         </div>
     </main>
     <div class="content">
+    </div>
+    <div id="taskPopup">
+        <div id="taskForm">
+            <form action="/action_page.php" class="formContainer">
+            <h2>Create your task</h2>
+            <label for="title">
+                <strong>Title</strong>
+            </label>
+            <input type="text" id="title" placeholder="Title of Task" name="title" required>
+            <label for="description">
+                <strong>Description</strong>
+            </label>
+            <input type="text" id="description" placeholder="Description" name="description">
+            <button type="submit" class="btn">Add task</button>
+            <button type="button" id="btn cancel" onclick="closeTaskForm()">Cancel</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
