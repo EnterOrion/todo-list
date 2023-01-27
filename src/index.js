@@ -1,7 +1,12 @@
 import homePage from "./functions/home"
 import todayPage from "./functions/today"
 import { projPage,  openProjForm, closeProjForm} from "./functions/projManager"
-import {closeTaskForm, openTaskForm} from "./functions/task"
+import {closeTaskForm, openTaskForm, todoTask, clearTaskForm} from "./functions/task"
+
+let taskArray = [];
+const taskForm = document.getElementById("taskInfo");
+
+
 
 
 const startUp = function() {
@@ -18,7 +23,8 @@ const startUp = function() {
     taskNav.addEventListener("click", openTaskForm);
 
     const cancelBtn = document.getElementById("btn cancel");
-    cancelBtn.addEventListener("click", closeTaskForm);
+    cancelBtn.addEventListener("click", taskDisplay);
+
 
     const projectBtn = document.getElementById("newProject");
     projectBtn.addEventListener("click", openProjForm);
@@ -29,4 +35,35 @@ const startUp = function() {
     homePage();
 }
 
+const taskLoad = function() {
+    
+    taskForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = taskForm.elements["title"];
+        const description = taskForm.elements["description"];
+        const dueDate = taskForm.elements["dueDate"];
+        const projectCategory = taskForm.elements["projectCategory"];
+        const priority = taskForm.elements["priority"];
+        const newTask = todoTask(title.value, description.value, dueDate.value, projectCategory.value, priority.value)
+        clearTaskForm();
+        taskArray.push(newTask);
+    }
+      );
+}
+
+const taskDisplay = function() {
+    console.log("success");
+    closeTaskForm();
+    let x = [];
+    const taskDisplay = document.getElementById("inbox");
+    taskDisplay.innerHTML = "";
+    for (let i=0; i<taskArray.length; i++) {
+        x.push(taskArray[i]['title']);
+        taskDisplay.innerHTML += x[i];
+        
+    }
+}
+
+
 startUp();
+taskLoad();
