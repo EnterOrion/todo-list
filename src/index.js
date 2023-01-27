@@ -55,11 +55,20 @@ const taskDisplay = function() {
     console.log("success");
     closeTaskForm();
     let x = [];
+    let z = [];
     const taskDisplay = document.getElementById("inbox");
     taskDisplay.innerHTML = "";
-    for (let i=0; i<taskArray.length; i++) {
-        x.push(taskArray[i]['title']);
-        taskDisplay.innerHTML += x[i];
+    console.log(taskArray);
+    for (let i = 0; i<taskArray.length; i++){
+        x.push(taskArray[i])
+        
+    }
+    let newX = JSON.stringify(x);
+    localStorage.setItem("tasks", newX);
+    let y = JSON.parse(localStorage.getItem("tasks"));
+    for (let i = 0; i<y.length; i++) {
+        let taskTitle = y[i]["title"]
+        taskDisplay.innerHTML += taskTitle + " ";
         
     }
 }
