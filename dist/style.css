@@ -113,4 +113,16 @@ li:hover {
   background: #eee;
 }
 
+.task-box {
+  width: 50px;
+  height: 50px;
+  background-color: pink;
+  border: 1px solid black;
+}
+
+#task-div {
+  display: flex;
+  gap: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */

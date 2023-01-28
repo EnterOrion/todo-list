@@ -1,7 +1,7 @@
 import homePage from "./functions/home"
 import todayPage from "./functions/today"
 import { projPage,  openProjForm, closeProjForm} from "./functions/projManager"
-import {closeTaskForm, openTaskForm, todoTask, clearTaskForm} from "./functions/task"
+import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 
 let taskArray = [];
 const taskForm = document.getElementById("taskInfo");
@@ -55,7 +55,6 @@ const taskDisplay = function() {
     console.log("success");
     closeTaskForm();
     let x = [];
-    let z = [];
     const taskDisplay = document.getElementById("inbox");
     taskDisplay.innerHTML = "";
     console.log(taskArray);
@@ -68,9 +67,11 @@ const taskDisplay = function() {
     let y = JSON.parse(localStorage.getItem("tasks"));
     for (let i = 0; i<y.length; i++) {
         let taskTitle = y[i]["title"]
-        taskDisplay.innerHTML += taskTitle + " ";
+        taskUI(y.length);
+        //taskDisplay.innerHTML += taskTitle + " ";
         
     }
+
 }
 
 

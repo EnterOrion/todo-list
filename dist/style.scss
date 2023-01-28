@@ -123,3 +123,15 @@ li:hover {
     border: none;
     background: #eee;
   } 
+
+.task-box, .task-box2 {
+    width: 50px;
+    height: 50px;
+    background-color: pink;
+    border: 1px solid black;
+}
+
+#task-div {
+    display: flex;
+    gap: 5px;
+}

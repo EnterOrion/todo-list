@@ -1,6 +1,9 @@
 const taskForm = document.getElementById("taskInfo");
 
 
+
+
+
 const todoTask = (name, details, date, project, concern) => { 
     return {title: name,
         description: details,
@@ -30,5 +33,22 @@ function clearTaskForm() {
     priority.value = "";
 }
 
+const taskUI = function(taskAmount) {
+    const taskDIV = document.createElement("div");
+    const inboxContainer = document.getElementById("inbox");
+    taskDIV.setAttribute("id", "task-div");
 
-export {openTaskForm, closeTaskForm, todoTask, clearTaskForm};
+    if (inboxContainer.querySelector('#task-div') === null) {
+        inboxContainer.appendChild(taskDIV);
+    }
+
+
+    const taskBoxDIV = document.createElement("div");
+    taskBoxDIV.setAttribute("class", "task-box");
+    for (let i = 0; i<taskAmount; i++) {
+        taskDIV.appendChild(taskBoxDIV.cloneNode(true));
+    }
+   
+}
+
+export {openTaskForm, closeTaskForm, todoTask, clearTaskForm, taskUI};
