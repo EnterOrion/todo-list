@@ -75,12 +75,13 @@ const taskDisplay = function() {
         taskUI(y.length);
         let elements = document.getElementById('task-div').children;
         elements.item(i).innerHTML +=  `
+            <button id="close-task">Delete</button>
             <p><strong>Task title:</strong> ${taskTitle}</p>
+            <p><strong>Details:</strong> ${taskDetails}</p>
             <p><strong>Due date:</strong> ${taskDate}</p>
             <p><strong>Project:</strong> ${taskProject}</p>
-            <p><strong>Priority:</strong> ${taskPriority}</p>
+            <p><strong>Priority</strong> <div id=${taskPriority}>${taskPriority}</div></p>
         `
-        
     }
 
 }
