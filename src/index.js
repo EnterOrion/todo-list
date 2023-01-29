@@ -66,9 +66,19 @@ const taskDisplay = function() {
     localStorage.setItem("tasks", newX);
     let y = JSON.parse(localStorage.getItem("tasks"));
     for (let i = 0; i<y.length; i++) {
-        let taskTitle = y[i]["title"]
+        let taskTitle = y[i]["title"];
+        let taskDetails = y[i]["description"];
+        let taskDate = y[i]["dueDate"];
+        let taskProject = y[i]["projectName"];
+        let taskPriority = y[i]["priority"];
+
         taskUI(y.length);
-        //taskDisplay.innerHTML += taskTitle + " ";
+        let elements = document.getElementById('task-div').children;
+        elements.item(i).innerHTML += taskTitle;
+        elements.item(i).innerHTML += taskDetails;
+        elements.item(i).innerHTML += taskDate;
+        elements.item(i).innerHTML += taskProject;
+        elements.item(i).innerHTML += taskPriority;
         
     }
 
