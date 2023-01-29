@@ -74,11 +74,12 @@ const taskDisplay = function() {
 
         taskUI(y.length);
         let elements = document.getElementById('task-div').children;
-        elements.item(i).innerHTML += taskTitle;
-        elements.item(i).innerHTML += taskDetails;
-        elements.item(i).innerHTML += taskDate;
-        elements.item(i).innerHTML += taskProject;
-        elements.item(i).innerHTML += taskPriority;
+        elements.item(i).innerHTML +=  `
+            <p><strong>Task title:</strong> ${taskTitle}</p>
+            <p><strong>Due date:</strong> ${taskDate}</p>
+            <p><strong>Project:</strong> ${taskProject}</p>
+            <p><strong>Priority:</strong> ${taskPriority}</p>
+        `
         
     }
 
