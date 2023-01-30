@@ -181,4 +181,8 @@ li:hover {
   background-color: lightgreen;
 }
 
+#inbox p {
+  margin-left: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */
