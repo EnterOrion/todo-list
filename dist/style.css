@@ -125,8 +125,8 @@ li:hover {
 }
 
 .task-box {
-  width: 150px;
-  height: 250px;
+  width: 250px;
+  height: 300px;
   overflow: auto;
   margin: 15px;
   background-color: rgb(255, 240, 248);

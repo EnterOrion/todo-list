@@ -2,6 +2,7 @@ import homePage from "./functions/home"
 import todayPage from "./functions/today"
 import { projPage,  openProjForm, closeProjForm, createProject, clearProjForm, projectUI} from "./functions/projManager"
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
+import {format} from "date-fns"
 
 let taskArray = [];
 let projectArray = [];
@@ -83,13 +84,19 @@ const taskDisplay = function() {
         let taskProject = y[i]["projectName"];
         let taskPriority = y[i]["priority"];
 
+        let taskDateFormatted = new Date(taskDate);
+        const dateMonth = format(taskDateFormatted, 'MMM');
+        const dateDay = format(taskDateFormatted, 'do');
+        const dateYear = format(taskDateFormatted, 'yyyy');
+        const dateText = `${dateMonth}. ${dateDay}, ${dateYear}`;
+
         taskUI(y.length);
         let elements = document.getElementById('task-div').children;
         elements.item(i).innerHTML +=  `
             <button id="close-task">Delete</button>
             <p><strong>Task title:</strong> ${taskTitle}</p>
             <p><strong>Details:</strong> ${taskDetails}</p>
-            <p><strong>Due date:</strong> ${taskDate}</p>
+            <p><strong>Due date:</strong> <em>${dateText}</em></p>
             <p><strong>Project:</strong> ${taskProject}</p>
             <p><strong>Priority</strong> <div id=${taskPriority}>${taskPriority}</div></p>
         `
