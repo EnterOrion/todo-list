@@ -17,7 +17,7 @@
             <span>To-do List</span></div>
     </header>
     <main class="main">
-        <nav class="nav">
+        <nav class="nav" id="nav">
         <ul>
             <li>
             <img src="images/home.png" alt="home">
@@ -65,7 +65,9 @@
             <label for="Project category">
                 <strong>Project</strong>
             </label>
-            <input type="text" id="projectCategory" placeholder="Project" name="projectCategory">
+            <select id="projectCategory" name="projectCategory">
+                <option value="None">None</option>
+            </select>
             <label for="priority">
                 <strong>Priority</strong>
             </label>
@@ -81,7 +83,7 @@
     </div>
     <div id="projectPopup">
         <div id="projectForm">
-            <form action="/action_page.php" class="formProjContainer">
+            <form action="" class="formProjContainer" id="projectInfo">
             <h2>Create your project</h2>
             <label for="title">
                 <strong>Title</strong>

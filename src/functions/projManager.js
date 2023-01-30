@@ -1,3 +1,5 @@
+const projectForm = document.getElementById("projectInfo")
+
 function projPage() {
     const inbox = document.getElementById("inbox");
     inbox.innerHTML = " ";
@@ -11,6 +13,10 @@ const createProject = (name) => {
 	projectName: name
 }
 }
+function clearProjForm() {
+    const title = projectForm.elements["titleProj"];
+    title.value = "";
+}
 
 function openProjForm() {
     document.getElementById("projectForm").style.display = "block";
@@ -20,4 +26,4 @@ function closeProjForm() {
 }
 
 
-export {projPage, openProjForm, closeProjForm};
+export {projPage, openProjForm, closeProjForm, createProject, clearProjForm};

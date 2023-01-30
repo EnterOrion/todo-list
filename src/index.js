@@ -1,10 +1,12 @@
 import homePage from "./functions/home"
 import todayPage from "./functions/today"
-import { projPage,  openProjForm, closeProjForm} from "./functions/projManager"
+import { projPage,  openProjForm, closeProjForm, createProject, clearProjForm} from "./functions/projManager"
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 
 let taskArray = [];
+let projectArray = [];
 const taskForm = document.getElementById("taskInfo");
+const projectForm = document.getElementById("projectInfo")
 
 
 
@@ -30,7 +32,7 @@ const startUp = function() {
     projectBtn.addEventListener("click", openProjForm);
 
     const cancelProjBtn = document.getElementById("btn cancel proj");
-    cancelProjBtn.addEventListener("click", closeProjForm);
+    cancelProjBtn.addEventListener("click", projectDisplay);
 
     homePage();
 }
@@ -51,13 +53,22 @@ const taskLoad = function() {
       );
 }
 
+const projectLoad = function() {
+    projectForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = projectForm.elements["titleProj"];
+        const newProject = createProject(title.value);
+        clearProjForm();
+        projectArray.push(newProject);
+        }
+    );
+}
+
 const taskDisplay = function() {
-    console.log("success");
     closeTaskForm();
     let x = [];
     const taskDisplay = document.getElementById("inbox");
     taskDisplay.innerHTML = "";
-    console.log(taskArray);
     for (let i = 0; i<taskArray.length; i++){
         x.push(taskArray[i])
         
@@ -86,6 +97,30 @@ const taskDisplay = function() {
 
 }
 
+const projectDisplay = function() {
+    closeProjForm();
+    let x = [];
+    const projectDisplay = document.getElementById("projectCategory");
+    for (let i = 0; i<projectArray.length; i++){
+        x.push(projectArray[i])
+    }
+    let selectLength = projectDisplay.length - 1;
+        for (let i = selectLength; i > 0; i--) {
+            projectDisplay.remove(i);
+    }
+    let newX = JSON.stringify(x);
+    localStorage.setItem("projects", newX);
+    let y = JSON.parse(localStorage.getItem("projects"));
+    for (let i = 0; i<y.length; i++) {
+        
+        let projectTitle = y[i]["projectName"];
+        let projectOption = document.createElement("option");
+        projectOption.text = projectTitle;
+        projectDisplay.add(projectOption);
+    }
+
+}
 
 startUp();
 taskLoad();
+projectLoad();
