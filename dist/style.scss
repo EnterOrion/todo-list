@@ -148,8 +148,20 @@ li:hover {
     }
 }
 
-#task-div {
+#task-div, #project-div {
     display: flex;
+}
+
+.project-box {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(255, 240, 248);
+    border: 2px solid black;
+    margin: 15px;
+    border-radius: 10px;
+    p {
+        margin-left: 5px;
+    }
 }
 
 #close-task {
@@ -182,3 +194,4 @@ li:hover {
     @extend %priority-task;
     background-color: lightgreen;
 }
+

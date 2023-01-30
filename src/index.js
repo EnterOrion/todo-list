@@ -1,6 +1,6 @@
 import homePage from "./functions/home"
 import todayPage from "./functions/today"
-import { projPage,  openProjForm, closeProjForm, createProject, clearProjForm} from "./functions/projManager"
+import { projPage,  openProjForm, closeProjForm, createProject, clearProjForm, projectUI} from "./functions/projManager"
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 
 let taskArray = [];
@@ -16,7 +16,7 @@ const startUp = function() {
     todayNav.addEventListener("click", todayPage);
 
     const homeNav = document.getElementById("home");
-    homeNav.addEventListener("click", homePage);
+    homeNav.addEventListener("click", homePageFull);
 
     const projNav = document.getElementById("projects");
     projNav.addEventListener("click", projPage);
@@ -100,13 +100,17 @@ const taskDisplay = function() {
 const projectDisplay = function() {
     closeProjForm();
     let x = [];
-    const projectDisplay = document.getElementById("projectCategory");
+    const projectSelection = document.getElementById("projectCategory");
+    const projectDisplay = document.getElementById("inbox");
+    projectDisplay.innerHTML = "";
+
     for (let i = 0; i<projectArray.length; i++){
         x.push(projectArray[i])
     }
-    let selectLength = projectDisplay.length - 1;
+
+    let selectLength = projectSelection.length - 1;
         for (let i = selectLength; i > 0; i--) {
-            projectDisplay.remove(i);
+            projectSelection.remove(i);
     }
     let newX = JSON.stringify(x);
     localStorage.setItem("projects", newX);
@@ -116,9 +120,20 @@ const projectDisplay = function() {
         let projectTitle = y[i]["projectName"];
         let projectOption = document.createElement("option");
         projectOption.text = projectTitle;
-        projectDisplay.add(projectOption);
+        projectSelection.add(projectOption);
+
+        projectUI(y.length);
+        let elements = document.getElementById('project-div').children;
+        elements.item(i).innerHTML +=  `
+        <p><strong>Project title:</strong> ${projectTitle}</p>
+        `
     }
 
+}
+
+const homePageFull = function() {
+    homePage();
+    taskDisplay();
 }
 
 startUp();

@@ -25,5 +25,22 @@ function closeProjForm() {
     document.getElementById("projectForm").style.display = "none";
 }
 
+const projectUI = function(projectAmount) {
+    const projectDIV = document.createElement("div");
+    const inboxContainer = document.getElementById("inbox");
+    projectDIV.setAttribute("id", "project-div");
 
-export {projPage, openProjForm, closeProjForm, createProject, clearProjForm};
+    if (inboxContainer.querySelector('#project-div') === null) {
+        inboxContainer.appendChild(projectDIV);
+    }
+
+    const projectBox = document.createElement("div");
+    projectBox.setAttribute("class", "project-box");
+    for (let i = 0; i<projectAmount; i++) {
+        projectDIV.appendChild(projectBox.cloneNode(true));
+    }
+   
+}
+
+
+export {projPage, openProjForm, closeProjForm, createProject, clearProjForm, projectUI};
