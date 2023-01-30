@@ -25,7 +25,7 @@ const activePage = function(page) {
 const startUp = function() {
 
     const todayNav = document.getElementById("today");
-    todayNav.addEventListener("click", todayPage);
+    todayNav.addEventListener("click", todayPageFull);
 
     const homeNav = document.getElementById("home");
     homeNav.addEventListener("click", homePageFull);
@@ -168,6 +168,57 @@ const projectDisplay = function() {
 
 }
 
+const todayDisplay = function() {
+    let todayArray = [];
+    const todayDisplay = document.getElementById("inbox");
+    let currentClass = todayDisplay.classList[0];
+    
+    if (currentClass == "today") {
+        todayDisplay.innerHTML = "";
+    }
+    let currentTime = new Date();
+    const dateCurrentMonth = format(currentTime, 'MM');
+    const dateCurrentDay = format(currentTime, 'dd');
+    const dateCurrentYear = format(currentTime, 'yyyy');
+    const dateCurrentText = `${dateCurrentYear}-${dateCurrentMonth}-${dateCurrentDay}`;
+    
+    let y = JSON.parse(localStorage.getItem("tasks"));
+    for (let i = 0; i<y.length; i++) {
+        let taskDate = y[i]["dueDate"];
+        if (taskDate == dateCurrentText){
+        todayArray.push(y[i]);
+        }
+       
+    }
+
+    for (let j = 0; j<todayArray.length; j++) {
+        let taskTitle = todayArray[j]["title"];
+        let taskDetails = todayArray [j]["description"];
+        let taskDate = todayArray[j]["dueDate"];
+        let taskProject = todayArray[j]["projectName"];
+        let taskPriority = todayArray[j]["priority"];
+        
+        let taskDateFormatted = new Date(taskDate);
+        const dateMonth = format(taskDateFormatted, 'MMM');
+        const dateDay = format(taskDateFormatted, 'do');
+        const dateYear = format(taskDateFormatted, 'yyyy');
+        const dateText = `${dateMonth}. ${dateDay}, ${dateYear}`;
+
+        taskUI(todayArray.length);
+        let elements = document.getElementById('task-div').children;
+        elements.item(j).innerHTML +=  `
+            <button id="close-task">Delete</button>
+            <p><strong>Task title:</strong> ${taskTitle}</p>
+            <p><strong>Details:</strong> ${taskDetails}</p>
+            <p><strong>Due date:</strong> <em>${dateText}</em></p>
+            <p><strong>Project:</strong> ${taskProject}</p>
+            <p><strong>Priority</strong> <div id=${taskPriority}>${taskPriority}</div></p>
+        `
+    }
+
+}
+
+
 const homePageFull = function() {
     activePage("home");
     homePage();
@@ -180,6 +231,12 @@ const projPageFull = function () {
     activePage("projects");
     projPage();
     projectDisplay();
+}
+
+const todayPageFull = function() {
+    activePage("today");
+    todayPage();
+    todayDisplay();
 }
 
 activePage("home");
