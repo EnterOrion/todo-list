@@ -20,7 +20,7 @@ body {
 .main {
   display: flex;
   width: calc(100vw - (100vw - 100%));
-  height: calc(100vh - 110px);
+  min-height: calc(100vh - 110px);
 }
 
 .header .logo {
@@ -41,6 +41,7 @@ body {
 }
 
 .nav {
+  align-self: stretch;
   background-color: #dc2626;
   font-size: 1.3125rem;
   color: white;
@@ -139,6 +140,8 @@ li:hover {
 
 #task-div, #project-div {
   display: flex;
+  min-width: 1136px;
+  flex-wrap: wrap;
 }
 
 .project-box {
@@ -181,6 +184,9 @@ li:hover {
   background-color: lightgreen;
 }
 
+#inbox {
+  height: auto;
+}
 #inbox p {
   margin-left: 5px;
 }

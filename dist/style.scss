@@ -30,7 +30,7 @@ body {
 .main {
     display: flex;
     width: calc(100vw - (100vw - 100%));
-    height: calc(100vh -  110px);
+    min-height: calc(100vh -  110px);
 }
 
 .header {
@@ -53,6 +53,7 @@ body {
 }
 
 .nav {
+    align-self: stretch;
     background-color: #dc2626;
     font-size: $font-size-xl;
     color: white;
@@ -150,6 +151,8 @@ li:hover {
 
 #task-div, #project-div {
     display: flex;
+    min-width: 1136px;
+    flex-wrap: wrap;
 }
 
 .project-box {
@@ -196,6 +199,7 @@ li:hover {
 }
 
 #inbox {
+    height: auto;
     p {
         margin-left: 5px;
     }
