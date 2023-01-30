@@ -1,6 +1,6 @@
 import homePage from "./functions/home"
 import todayPage from "./functions/today"
-import { projPage,  openProjForm, closeProjForm, createProject, clearProjForm, projectUI} from "./functions/projManager"
+import {projPage,  openProjForm, closeProjForm, createProject, clearProjForm, projectUI} from "./functions/projManager"
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 import {format} from "date-fns"
 
@@ -9,10 +9,21 @@ let projectArray = [];
 const taskForm = document.getElementById("taskInfo");
 const projectForm = document.getElementById("projectInfo")
 
+const activePage = function(page) {
+    let inboxSelector = document.getElementById("inbox");
+    let currentClass = inboxSelector.classList[0];
+    
+    if (inboxSelector.classList.length == 1) {
+        inboxSelector.classList.remove(currentClass);
+    }
+
+    inboxSelector.classList.add(page);
+}
 
 
 
 const startUp = function() {
+
     const todayNav = document.getElementById("today");
     todayNav.addEventListener("click", todayPage);
 
@@ -20,7 +31,7 @@ const startUp = function() {
     homeNav.addEventListener("click", homePageFull);
 
     const projNav = document.getElementById("projects");
-    projNav.addEventListener("click", projPage);
+    projNav.addEventListener("click", projPageFull);
 
     const taskNav = document.getElementById("newTask");
     taskNav.addEventListener("click", openTaskForm);
@@ -68,8 +79,14 @@ const projectLoad = function() {
 const taskDisplay = function() {
     closeTaskForm();
     let x = [];
+    let inboxSelector = document.getElementById("inbox");
+    let currentClass = inboxSelector.classList[0];
+
     const taskDisplay = document.getElementById("inbox");
+    
+    if (currentClass == "home") {
     taskDisplay.innerHTML = "";
+    }
     for (let i = 0; i<taskArray.length; i++){
         x.push(taskArray[i])
         
@@ -90,6 +107,9 @@ const taskDisplay = function() {
         const dateYear = format(taskDateFormatted, 'yyyy');
         const dateText = `${dateMonth}. ${dateDay}, ${dateYear}`;
 
+
+    if (currentClass == "home") {
+        
         taskUI(y.length);
         let elements = document.getElementById('task-div').children;
         elements.item(i).innerHTML +=  `
@@ -101,15 +121,23 @@ const taskDisplay = function() {
             <p><strong>Priority</strong> <div id=${taskPriority}>${taskPriority}</div></p>
         `
     }
+    }
 
 }
 
 const projectDisplay = function() {
     closeProjForm();
     let x = [];
+    let inboxSelector = document.getElementById("inbox");
+    let currentClass = inboxSelector.classList[0];
+
     const projectSelection = document.getElementById("projectCategory");
     const projectDisplay = document.getElementById("inbox");
-    projectDisplay.innerHTML = "";
+    
+
+    if (currentClass == "projects") {
+        projectDisplay.innerHTML = "";
+    }
 
     for (let i = 0; i<projectArray.length; i++){
         x.push(projectArray[i])
@@ -129,20 +157,32 @@ const projectDisplay = function() {
         projectOption.text = projectTitle;
         projectSelection.add(projectOption);
 
+    if (currentClass == "projects") {
         projectUI(y.length);
         let elements = document.getElementById('project-div').children;
         elements.item(i).innerHTML +=  `
         <p><strong>Project title:</strong> ${projectTitle}</p>
         `
     }
+    }
 
 }
 
 const homePageFull = function() {
+    activePage("home");
     homePage();
     taskDisplay();
+   
 }
 
+
+const projPageFull = function () {
+    activePage("projects");
+    projPage();
+    projectDisplay();
+}
+
+activePage("home");
 startUp();
 taskLoad();
 projectLoad();
