@@ -113,15 +113,23 @@ const taskDisplay = function() {
         taskUI(y.length);
         let elements = document.getElementById('task-div').children;
         elements.item(i).innerHTML +=  `
-            <button id="close-task">Delete</button>
-            <p><strong>Task title:</strong> ${taskTitle}</p>
+            <button class="close-task">Delete</button>
+            <p><strong>Task title:</strong> <span class="task-title">${taskTitle}</span></p>
             <p><strong>Details:</strong> ${taskDetails}</p>
             <p><strong>Due date:</strong> <em>${dateText}</em></p>
             <p><strong>Project:</strong> ${taskProject}</p>
             <p><strong>Priority</strong> <div id=${taskPriority}>${taskPriority}</div></p>
         `
+        
     }
+    
     }
+    const deleteButton = document.getElementsByClassName("close-task");
+    for (let i = 0; i<deleteButton.length; i++)
+        deleteButton[i].addEventListener('click', e => {
+        removeTask(deleteButton[i]);
+    }
+    )
 
 }
 
@@ -207,15 +215,33 @@ const todayDisplay = function() {
         taskUI(todayArray.length);
         let elements = document.getElementById('task-div').children;
         elements.item(j).innerHTML +=  `
-            <button id="close-task">Delete</button>
+            <button class="close-task">Delete</button>
             <p><strong>Task title:</strong> ${taskTitle}</p>
             <p><strong>Details:</strong> ${taskDetails}</p>
             <p><strong>Due date:</strong> <em>${dateText}</em></p>
             <p><strong>Project:</strong> ${taskProject}</p>
             <p><strong>Priority</strong> <div id=${taskPriority}>${taskPriority}</div></p>
         `
+        
     }
 
+}
+
+const removeTask = function(taskSelector) {
+    let x = [];
+    let taskParagraph = taskSelector.parentElement.querySelector('.task-title');
+    let taskRemoveTitle = taskParagraph.innerHTML;
+    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    for (let i=0; i< taskArray.length; i++) {
+        let taskTitle = taskArray[i]["title"];
+        if (taskTitle == taskRemoveTitle) {
+           x.push(taskArray.splice(i, 1));
+        }
+    }
+
+    let tasks = JSON.stringify(taskArray);
+    localStorage.setItem("tasks", tasks);
+    taskDisplay();
 }
 
 

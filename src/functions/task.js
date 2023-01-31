@@ -29,8 +29,8 @@ function clearTaskForm() {
     title.value = "";
     description.value = "";
     dueDate.value = "";
-    projectCategory.value = "";
-    priority.value = "";
+    projectCategory.value = "None";
+    priority.value = "Low";
 }
 
 const taskUI = function(taskAmount) {
