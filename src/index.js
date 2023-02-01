@@ -336,6 +336,7 @@ const removeProject = function(projectSelector) {
     let projects = JSON.stringify(projectArray);
     localStorage.setItem("projects", projects);
     projectDisplay();
+    removeProjLabel(projRemoveTitle);
 }
 
 const removeTodayTask = function(todaySelector) {
@@ -352,6 +353,20 @@ const removeTodayTask = function(todaySelector) {
     let tasks = JSON.stringify(taskArray);
     localStorage.setItem("tasks", tasks);
     todayDisplay();
+}
+
+
+const removeProjLabel = function(removeLabel) {
+    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    for (let i=0; i<taskArray.length; i++) {
+        let oldProj = taskArray[i]["projectName"];
+        if (oldProj == removeLabel) {
+            taskArray[i]["projectName"] = "None";
+        }
+    }
+    let tasks = JSON.stringify(taskArray);
+    localStorage.setItem("tasks", tasks);
+    taskDisplay();
 }
 
 
