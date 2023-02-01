@@ -3,6 +3,7 @@ import todayPage from "./functions/today"
 import {projPage,  openProjForm, closeProjForm, createProject, clearProjForm, projectUI} from "./functions/projManager"
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 import {format} from "date-fns"
+import { zhCN } from "date-fns/locale"
 
 
 let taskArray = [];
@@ -52,14 +53,15 @@ const startUp = function() {
 }
 
 const taskLoad = function() {
-    
+    let x = [];
     taskForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const title = taskForm.elements["title"];
         let y = JSON.parse(localStorage.getItem("tasks"));
+        let firstTitle = title.value;
+
         for (let i = 0; i<y.length; i++) {
             let taskTitle = y[i]["title"];
-            let firstTitle = title.value;
             if (firstTitle == taskTitle) {
                 document.getElementById("repeatTitle").style.display = "block";
                 document.getElementById("repeat-understood").addEventListener('click', e=> {
@@ -68,6 +70,17 @@ const taskLoad = function() {
                 return;
             }
         }
+
+        for (let i=0; i<x.length; i++) {
+            let taskTitle = x[i]["title"];
+            if (firstTitle == taskTitle) {
+                document.getElementById("repeatTitle").style.display = "block";
+                document.getElementById("repeat-understood").addEventListener('click', e=> {
+                document.getElementById("repeatTitle").style.display = "none";
+            })
+            return;
+        }
+    }
         
         const description = taskForm.elements["description"];
         const dueDate = taskForm.elements["dueDate"];
@@ -76,18 +89,23 @@ const taskLoad = function() {
         const newTask = todoTask(title.value, description.value, dueDate.value, projectCategory.value, priority.value)
         clearTaskForm();
         taskArray.push(newTask);
+        x.push(newTask);
+       
     }
       );
+      
 }
 
 const projectLoad = function() {
+    let x = [];
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const title = projectForm.elements["titleProj"];
         let y = JSON.parse(localStorage.getItem("projects"));
+        let firstTitle = title.value;
+
         for (let i = 0; i<y.length; i++) {
             let projectTitle = y[i]["projectName"];
-            let firstTitle = title.value;
             if (firstTitle == projectTitle) {
                 document.getElementById("repeatProject").style.display = "block";
                 document.getElementById("repeat-understood-proj").addEventListener('click', e=> {
@@ -96,9 +114,22 @@ const projectLoad = function() {
                 return;
             }
         }
+
+        for (let i=0; i<x.length; i++) {
+            let projectTitle = x[i]["projectName"];
+            if (firstTitle == projectTitle) {
+                document.getElementById("repeatProject").style.display = "block";
+                document.getElementById("repeat-understood-proj").addEventListener('click', e=> {
+                    document.getElementById("repeatProject").style.display = "none";
+                })
+                return;
+            }
+        }
+
         const newProject = createProject(title.value);
         clearProjForm();
         projectArray.push(newProject);
+        x.push(newProject);
         }
     );
 }
