@@ -26,7 +26,6 @@ const activePage = function(page) {
 
 
 const startUp = function() {
-
     const todayNav = document.getElementById("today");
     todayNav.addEventListener("click", todayPageFull);
 
@@ -57,6 +56,19 @@ const taskLoad = function() {
     taskForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const title = taskForm.elements["title"];
+        let y = JSON.parse(localStorage.getItem("tasks"));
+        for (let i = 0; i<y.length; i++) {
+            let taskTitle = y[i]["title"];
+            let firstTitle = title.value;
+            if (firstTitle == taskTitle) {
+                document.getElementById("repeatTitle").style.display = "block";
+                document.getElementById("repeat-understood").addEventListener('click', e=> {
+                    document.getElementById("repeatTitle").style.display = "none";
+                })
+                return;
+            }
+        }
+        
         const description = taskForm.elements["description"];
         const dueDate = taskForm.elements["dueDate"];
         const projectCategory = taskForm.elements["projectCategory"];
@@ -72,6 +84,18 @@ const projectLoad = function() {
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const title = projectForm.elements["titleProj"];
+        let y = JSON.parse(localStorage.getItem("projects"));
+        for (let i = 0; i<y.length; i++) {
+            let projectTitle = y[i]["projectName"];
+            let firstTitle = title.value;
+            if (firstTitle == projectTitle) {
+                document.getElementById("repeatProject").style.display = "block";
+                document.getElementById("repeat-understood-proj").addEventListener('click', e=> {
+                    document.getElementById("repeatProject").style.display = "none";
+                })
+                return;
+            }
+        }
         const newProject = createProject(title.value);
         clearProjForm();
         projectArray.push(newProject);

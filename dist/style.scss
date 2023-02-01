@@ -126,15 +126,19 @@ li:hover {
     background-color: rgb(184, 164, 255);
   }
 
-  .formContainer input[type=text],
-  .formProjContainer input[type=text]
+  .formContainer input,
+  .formProjContainer input
    {
     width: 90%;
     padding: 15px;
-    margin: 5px 0 10px 0;
+    margin: 5px 0px 10px 0;
     border: none;
     background: #eee;
   } 
+
+.formContainer select {
+    margin: 0px 0px 8px 0;
+}
 
 .task-box {
     width: 250px;
@@ -203,5 +207,30 @@ li:hover {
     height: auto;
     p {
         margin-left: 5px;
+    }
+}
+
+#repeatTitle, #repeatProject {
+    display: none;
+    height: 100px;
+    width: 290px;
+    background-color: rgb(255, 209, 125, 0.9);
+    border: 1px solid black;
+    transform: translate(-50%, 5%);
+    position: fixed;
+    left: 45%;
+    top: 11%;
+    z-index: 9;
+    h3 {
+        text-align: center;
+    }
+ 
+  
+    button {
+        position: fixed;
+        left: 80%;
+        top: 75%;
+        z-index: 9;
+        
     }
 }
