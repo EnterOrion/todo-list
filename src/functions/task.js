@@ -1,9 +1,6 @@
 const taskForm = document.getElementById("taskInfo");
 
 
-
-
-
 const todoTask = (name, details, date, project, concern) => { 
     return {title: name,
         description: details,

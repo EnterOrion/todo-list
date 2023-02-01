@@ -54,16 +54,16 @@ body {
   width: 83%;
 }
 
-ul {
+nav ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
-ul li {
+nav ul li {
   display: flex;
 }
-ul li span {
+nav ul li span {
   margin-left: 8px;
 }
 
@@ -150,7 +150,7 @@ li:hover {
 }
 
 .project-box {
-  width: 230px;
+  width: 350px;
   height: 80px;
   background-color: rgb(255, 240, 248);
   border: 2px solid black;
@@ -159,6 +159,9 @@ li:hover {
 }
 .project-box p {
   margin-left: 5px;
+}
+.project-box .task-number-proj {
+  margin-left: 100px;
 }
 
 .close-task, .close-project {
@@ -173,8 +176,24 @@ li:hover {
   border: 1px solid white;
 }
 
+.project-details {
+  background-color: rgb(255, 201, 131);
+  border: none;
+  border-radius: 30px;
+  margin-left: 3px;
+  margin-top: 8px;
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 1px solid white;
+}
+
 .close-task:hover, .close-project:hover {
   background-color: rgb(255, 105, 105);
+}
+
+.project-details:hover {
+  background-color: rgb(255, 182, 87);
 }
 
 #High {
@@ -215,6 +234,28 @@ li:hover {
   position: fixed;
   left: 80%;
   top: 75%;
+  z-index: 9;
+}
+
+#project-tasks {
+  display: none;
+  height: 300px;
+  width: 290px;
+  background-color: rgba(216, 216, 216, 0.9);
+  border: 3px solid black;
+  transform: translate(-50%, 5%);
+  position: fixed;
+  left: 55%;
+  top: 25%;
+  z-index: 9;
+}
+#project-tasks h4 {
+  margin-left: 5px;
+}
+#project-tasks button {
+  position: fixed;
+  left: 81%;
+  top: 92%;
   z-index: 9;
 }
 

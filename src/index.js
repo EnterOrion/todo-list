@@ -193,12 +193,14 @@ const taskDisplay = function() {
         removeTask(deleteButton[i]);
     }
     )
+    projectDisplay();
 
 }
 
 const projectDisplay = function() {
     closeProjForm();
     let x = [];
+    let taskNumber = 0;
     let inboxSelector = document.getElementById("inbox");
     let currentClass = inboxSelector.classList[0];
 
@@ -221,6 +223,7 @@ const projectDisplay = function() {
     let newX = JSON.stringify(x);
     localStorage.setItem("projects", newX);
     let y = JSON.parse(localStorage.getItem("projects"));
+
     for (let i = 0; i<y.length; i++) {
         
         let projectTitle = y[i]["projectName"];
@@ -233,6 +236,8 @@ const projectDisplay = function() {
         let elements = document.getElementById('project-div').children;
         elements.item(i).innerHTML +=  `
         <button class="close-project">Delete</button>
+        <span class="task-number-proj">Number of tasks: ${projectTaskCounter(projectTitle)}</span>
+        <button class="project-details">Details</button>
         <p><strong>Project title:</strong> <span class="project-title">${projectTitle}</span></p>
         `
     }
@@ -243,6 +248,18 @@ const projectDisplay = function() {
         removeProject(deleteButton[i]);
     }
     )
+    
+
+    const detailButton = document.getElementsByClassName("project-details");
+    for (let i = 0; i<detailButton.length; i++) 
+        detailButton[i].addEventListener('click', e => {
+            document.getElementById("project-tasks").style.display = "block";
+            detailProject(detailButton[i]);
+            document.getElementById("info-understood-proj").addEventListener('click', e=> {
+                document.getElementById("project-tasks").style.display = "none";
+            })
+        }
+        )
 
 }
 
@@ -369,6 +386,41 @@ const removeProjLabel = function(removeLabel) {
     taskDisplay();
 }
 
+const detailProject = function(projectSelector) {
+    let x = [];
+    let projectParagraph = projectSelector.parentElement.querySelector('.project-title');
+    let projDetailTitle = projectParagraph.innerHTML;
+
+    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    for (let i=0; i<taskArray.length; i++) {
+        let taskFinder = taskArray[i]["projectName"];
+        if (taskFinder == projDetailTitle) {
+            x.push(taskArray[i]["title"]);
+        }
+    }
+    console.log(x);
+    document.getElementById("task-list").innerHTML = "";
+    for (let i=0; i<x.length; i++) {
+
+            document.getElementById("task-list").innerHTML += `
+            <ul>
+            <li>${x[i]}</li>
+            </ul>`
+    }
+
+}
+
+const projectTaskCounter = function(currentProject) {
+    let taskNumber = 0;
+    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    for (let i=0; i<taskArray.length; i++) {
+        let projFinder = taskArray[i]["projectName"];
+        if (projFinder == currentProject) {
+           taskNumber++;
+        }
+    }
+    return taskNumber;
+}
 
 const homePageFull = function() {
     activePage("home");
