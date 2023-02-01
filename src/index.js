@@ -86,19 +86,21 @@ const taskDisplay = function() {
     let currentClass = inboxSelector.classList[0];
 
     const taskDisplay = document.getElementById("inbox");
-    
-    if (currentClass == "home") {
-    taskDisplay.innerHTML = "";
-    }
-    else if (currentClass == "today") {
-        todayDisplay();
-    }
     for (let i = 0; i<taskArray.length; i++){
         x.push(taskArray[i])
         
     }
     let newX = JSON.stringify(x);
     localStorage.setItem("tasks", newX);
+
+    if (currentClass == "home") {
+    taskDisplay.innerHTML = "";
+    }
+    else if (currentClass == "today") {
+        todayDisplay();
+    }
+    
+ 
     let y = JSON.parse(localStorage.getItem("tasks"));
     for (let i = 0; i<y.length; i++) {
         let taskTitle = y[i]["title"];
