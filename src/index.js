@@ -398,7 +398,7 @@ const detailProject = function(projectSelector) {
             x.push(taskArray[i]["title"]);
         }
     }
-    console.log(x);
+
     document.getElementById("task-list").innerHTML = "";
     for (let i=0; i<x.length; i++) {
 

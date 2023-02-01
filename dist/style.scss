@@ -57,7 +57,7 @@ body {
     background-color: #dc2626;
     font-size: $font-size-xl;
     color: white;
-    width: 17%;
+    width: 15%;
 }
 
 .inbox {
@@ -160,9 +160,14 @@ li:hover {
     flex-wrap: wrap;
 }
 
+#project-div {
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .project-box {
-    width: 350px;
-    height: 80px;
+    width: 410px;
+    height: 90px;
     background-color: rgb(255, 240, 248);
     border: 2px solid black;
     margin: 15px;
@@ -191,7 +196,7 @@ li:hover {
     background-color: rgb(255, 201, 131);
     border: none;
     border-radius: 30px;
-    margin-left: 3px;
+    margin-left: 65px;
     margin-top: 8px;
     padding: 3px;
     padding-left: 5px;
