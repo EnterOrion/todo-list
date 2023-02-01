@@ -4,8 +4,11 @@ import {projPage,  openProjForm, closeProjForm, createProject, clearProjForm, pr
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 import {format} from "date-fns"
 
+
 let taskArray = [];
 let projectArray = [];
+
+
 const taskForm = document.getElementById("taskInfo");
 const projectForm = document.getElementById("projectInfo")
 
@@ -86,6 +89,9 @@ const taskDisplay = function() {
     
     if (currentClass == "home") {
     taskDisplay.innerHTML = "";
+    }
+    else if (currentClass == "today") {
+        todayDisplay();
     }
     for (let i = 0; i<taskArray.length; i++){
         x.push(taskArray[i])
@@ -169,10 +175,17 @@ const projectDisplay = function() {
         projectUI(y.length);
         let elements = document.getElementById('project-div').children;
         elements.item(i).innerHTML +=  `
-        <p><strong>Project title:</strong> ${projectTitle}</p>
+        <button class="close-project">Delete</button>
+        <p><strong>Project title:</strong> <span class="project-title">${projectTitle}</span></p>
         `
     }
     }
+    const deleteButton = document.getElementsByClassName("close-project");
+    for (let i = 0; i<deleteButton.length; i++)
+        deleteButton[i].addEventListener('click', e => {
+        removeProject(deleteButton[i]);
+    }
+    )
 
 }
 
@@ -180,7 +193,8 @@ const todayDisplay = function() {
     let todayArray = [];
     const todayDisplay = document.getElementById("inbox");
     let currentClass = todayDisplay.classList[0];
-    
+
+
     if (currentClass == "today") {
         todayDisplay.innerHTML = "";
     }
@@ -198,6 +212,7 @@ const todayDisplay = function() {
         }
        
     }
+    
 
     for (let j = 0; j<todayArray.length; j++) {
         let taskTitle = todayArray[j]["title"];
@@ -216,7 +231,7 @@ const todayDisplay = function() {
         let elements = document.getElementById('task-div').children;
         elements.item(j).innerHTML +=  `
             <button class="close-task">Delete</button>
-            <p><strong>Task title:</strong> ${taskTitle}</p>
+            <p><strong>Task title:</strong> <span class="task-title">${taskTitle}</span></p>
             <p><strong>Details:</strong> ${taskDetails}</p>
             <p><strong>Due date:</strong> <em>${dateText}</em></p>
             <p><strong>Project:</strong> ${taskProject}</p>
@@ -224,6 +239,12 @@ const todayDisplay = function() {
         `
         
     }
+    const deleteButton = document.getElementsByClassName("close-task");
+    for (let i = 0; i<deleteButton.length; i++)
+        deleteButton[i].addEventListener('click', e => {
+        removeTodayTask(deleteButton[i]);
+    }
+    )
 
 }
 
@@ -242,6 +263,38 @@ const removeTask = function(taskSelector) {
     let tasks = JSON.stringify(taskArray);
     localStorage.setItem("tasks", tasks);
     taskDisplay();
+}
+
+const removeProject = function(projectSelector) {
+    let x = [];
+    let projectParagraph = projectSelector.parentElement.querySelector('.project-title');
+    let projRemoveTitle = projectParagraph.innerHTML;
+    projectArray = JSON.parse(localStorage.getItem("projects"));
+    for (let i=0; i<projectArray.length; i++) {
+        let projectTitle = projectArray[i]["projectName"];
+        if (projectTitle == projRemoveTitle) {
+           x.push(projectArray.splice(i, 1));
+        }
+    }
+    let projects = JSON.stringify(projectArray);
+    localStorage.setItem("projects", projects);
+    projectDisplay();
+}
+
+const removeTodayTask = function(todaySelector) {
+    let x = [];
+    let todayParagraph = todaySelector.parentElement.querySelector('.task-title');
+    let todayRemoveTitle = todayParagraph.innerHTML;
+    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    for (let i=0; i< taskArray.length; i++) {
+        let todayTitle = taskArray[i]["title"];
+        if (todayTitle == todayRemoveTitle) {
+           x.push(taskArray.splice(i, 1));
+        }
+    }
+    let tasks = JSON.stringify(taskArray);
+    localStorage.setItem("tasks", tasks);
+    todayDisplay();
 }
 
 
