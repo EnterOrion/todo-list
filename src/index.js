@@ -3,11 +3,9 @@ import todayPage from "./functions/today"
 import {projPage,  openProjForm, closeProjForm, createProject, clearProjForm, projectUI} from "./functions/projManager"
 import {closeTaskForm, openTaskForm, todoTask, clearTaskForm, taskUI} from "./functions/task"
 import {format} from "date-fns"
-import { zhCN } from "date-fns/locale"
 
-
-let taskArray = [];
-let projectArray = [];
+//let taskArray = [];
+//let projectArray = [];
 
 
 const taskForm = document.getElementById("taskInfo");
@@ -27,6 +25,15 @@ const activePage = function(page) {
 
 
 const startUp = function() {
+    taskLoad();
+    projectLoad();
+    let y = JSON.parse(localStorage.getItem("tasks"));
+    if (y != null) {
+        taskDisplay();
+    }
+    else {
+        homePage();
+    }
     const todayNav = document.getElementById("today");
     todayNav.addEventListener("click", todayPageFull);
 
@@ -49,17 +56,34 @@ const startUp = function() {
     const cancelProjBtn = document.getElementById("btn cancel proj");
     cancelProjBtn.addEventListener("click", projectDisplay);
 
-    homePage();
 }
 
 const taskLoad = function() {
     let x = [];
+    let taskArray = [];
+    if (JSON.parse(localStorage.getItem("tasks")) == null || JSON.parse(localStorage.getItem("tasks")).length == 0) {
+        taskArray = [];
+    }
+    else {
+        let y = JSON.parse(localStorage.getItem("tasks"));
+        for (let i=0; i<y.length; i++) {
+        taskArray.push(y[i]);
+        }
+    }
+    let checker = "good";
+    if (taskForm.classList.length == 2)
+    { checker = "bad"}
+
+if (checker == "good" ) {
+
     taskForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        taskForm.classList.add("event-added");
         const title = taskForm.elements["title"];
         let y = JSON.parse(localStorage.getItem("tasks"));
         let firstTitle = title.value;
 
+        if (y != null) {
         for (let i = 0; i<y.length; i++) {
             let taskTitle = y[i]["title"];
             if (firstTitle == taskTitle) {
@@ -70,6 +94,7 @@ const taskLoad = function() {
                 return;
             }
         }
+    }
 
         for (let i=0; i<x.length; i++) {
             let taskTitle = x[i]["title"];
@@ -88,22 +113,44 @@ const taskLoad = function() {
         const priority = taskForm.elements["priority"];
         const newTask = todoTask(title.value, description.value, dueDate.value, projectCategory.value, priority.value)
         clearTaskForm();
+        taskArray = [];
+        y = JSON.parse(localStorage.getItem("tasks"));
+        if (y != null) {
+        for (let i=0; i<y.length; i++) {
+            taskArray.push(y[i]);
+        }
+    }
         taskArray.push(newTask);
-        x.push(newTask);
+        let newTaskArray = JSON.stringify(taskArray);
+        localStorage.setItem("tasks", newTaskArray);
+        //x.push(newTask);    
        
     }
-      );
-      
+        );
+}
+    
+    return taskArray;
 }
 
 const projectLoad = function() {
     let x = [];
+    let projectArray = [];
+    if (JSON.parse(localStorage.getItem("projects")) == null || JSON.parse(localStorage.getItem("projects")).length == 0) {
+        projectArray = [];
+    }
+    else {
+        let y = JSON.parse(localStorage.getItem("projects"));
+        for (let i=0; i<y.length; i++) {
+        projectArray.push(y[i]);
+        }
+    }
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const title = projectForm.elements["titleProj"];
         let y = JSON.parse(localStorage.getItem("projects"));
         let firstTitle = title.value;
 
+        if (y != null) {
         for (let i = 0; i<y.length; i++) {
             let projectTitle = y[i]["projectName"];
             if (firstTitle == projectTitle) {
@@ -114,6 +161,7 @@ const projectLoad = function() {
                 return;
             }
         }
+    }
 
         for (let i=0; i<x.length; i++) {
             let projectTitle = x[i]["projectName"];
@@ -128,25 +176,35 @@ const projectLoad = function() {
 
         const newProject = createProject(title.value);
         clearProjForm();
+        projectArray = [];
+        if (y != null) {
+            for (let i=0; i<y.length; i++) {
+                projectArray.push(y[i]);
+                }
+        }
         projectArray.push(newProject);
         x.push(newProject);
+        let newProjectArray = JSON.stringify(projectArray);
+        localStorage.setItem("projects", newProjectArray);
         }
     );
 }
 
 const taskDisplay = function() {
+    let taskArray = JSON.parse(localStorage.getItem("tasks"));
     closeTaskForm();
+
     let x = [];
     let inboxSelector = document.getElementById("inbox");
     let currentClass = inboxSelector.classList[0];
 
     const taskDisplay = document.getElementById("inbox");
-    for (let i = 0; i<taskArray.length; i++){
+    /*for (let i = 0; i<taskArray.length; i++){
         x.push(taskArray[i])
         
     }
     let newX = JSON.stringify(x);
-    localStorage.setItem("tasks", newX);
+    localStorage.setItem("tasks", newX);*/
 
     if (currentClass == "home") {
     taskDisplay.innerHTML = "";
@@ -156,13 +214,14 @@ const taskDisplay = function() {
     }
     
  
-    let y = JSON.parse(localStorage.getItem("tasks"));
-    for (let i = 0; i<y.length; i++) {
-        let taskTitle = y[i]["title"];
-        let taskDetails = y[i]["description"];
-        let taskDate = y[i]["dueDate"];
-        let taskProject = y[i]["projectName"];
-        let taskPriority = y[i]["priority"];
+    //let y = JSON.parse(localStorage.getItem("tasks")); changed y to taskArray
+    if (taskArray != null) {
+    for (let i = 0; i<taskArray.length; i++) {
+        let taskTitle = taskArray[i]["title"];
+        let taskDetails = taskArray[i]["description"];
+        let taskDate = taskArray[i]["dueDate"];
+        let taskProject = taskArray[i]["projectName"];
+        let taskPriority = taskArray[i]["priority"];
 
         let taskDateFormatted = new Date(taskDate);
         const dateMonth = format(taskDateFormatted, 'MMM');
@@ -173,7 +232,7 @@ const taskDisplay = function() {
 
     if (currentClass == "home") {
         
-        taskUI(y.length);
+        taskUI(taskArray.length);
         let elements = document.getElementById('task-div').children;
         elements.item(i).innerHTML +=  `
             <button class="close-task">Delete</button>
@@ -193,14 +252,15 @@ const taskDisplay = function() {
         removeTask(deleteButton[i]);
     }
     )
+}
     projectDisplay();
 
 }
 
 const projectDisplay = function() {
+    let projectArray = JSON.parse(localStorage.getItem("projects"));
     closeProjForm();
     let x = [];
-    let taskNumber = 0;
     let inboxSelector = document.getElementById("inbox");
     let currentClass = inboxSelector.classList[0];
 
@@ -212,6 +272,7 @@ const projectDisplay = function() {
         projectDisplay.innerHTML = "";
     }
 
+    if (projectArray != null) {
     for (let i = 0; i<projectArray.length; i++){
         x.push(projectArray[i])
     }
@@ -248,6 +309,7 @@ const projectDisplay = function() {
         removeProject(deleteButton[i]);
     }
     )
+}
     
 
     const detailButton = document.getElementsByClassName("project-details");
@@ -279,6 +341,7 @@ const todayDisplay = function() {
     const dateCurrentText = `${dateCurrentYear}-${dateCurrentMonth}-${dateCurrentDay}`;
     
     let y = JSON.parse(localStorage.getItem("tasks"));
+    if (y != null) {
     for (let i = 0; i<y.length; i++) {
         let taskDate = y[i]["dueDate"];
         if (taskDate == dateCurrentText){
@@ -286,6 +349,7 @@ const todayDisplay = function() {
         }
        
     }
+}
     
 
     for (let j = 0; j<todayArray.length; j++) {
@@ -324,9 +388,9 @@ const todayDisplay = function() {
 
 const removeTask = function(taskSelector) {
     let x = [];
+    let taskArray = JSON.parse(localStorage.getItem("tasks"))
     let taskParagraph = taskSelector.parentElement.querySelector('.task-title');
     let taskRemoveTitle = taskParagraph.innerHTML;
-    taskArray = JSON.parse(localStorage.getItem("tasks"));
     for (let i=0; i< taskArray.length; i++) {
         let taskTitle = taskArray[i]["title"];
         if (taskTitle == taskRemoveTitle) {
@@ -343,7 +407,7 @@ const removeProject = function(projectSelector) {
     let x = [];
     let projectParagraph = projectSelector.parentElement.querySelector('.project-title');
     let projRemoveTitle = projectParagraph.innerHTML;
-    projectArray = JSON.parse(localStorage.getItem("projects"));
+    let projectArray = JSON.parse(localStorage.getItem("projects"));
     for (let i=0; i<projectArray.length; i++) {
         let projectTitle = projectArray[i]["projectName"];
         if (projectTitle == projRemoveTitle) {
@@ -360,7 +424,7 @@ const removeTodayTask = function(todaySelector) {
     let x = [];
     let todayParagraph = todaySelector.parentElement.querySelector('.task-title');
     let todayRemoveTitle = todayParagraph.innerHTML;
-    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    let taskArray = JSON.parse(localStorage.getItem("tasks"));
     for (let i=0; i< taskArray.length; i++) {
         let todayTitle = taskArray[i]["title"];
         if (todayTitle == todayRemoveTitle) {
@@ -374,13 +438,15 @@ const removeTodayTask = function(todaySelector) {
 
 
 const removeProjLabel = function(removeLabel) {
-    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    let taskArray = JSON.parse(localStorage.getItem("tasks"));
+    if (taskArray != null) {
     for (let i=0; i<taskArray.length; i++) {
         let oldProj = taskArray[i]["projectName"];
         if (oldProj == removeLabel) {
             taskArray[i]["projectName"] = "None";
         }
     }
+}
     let tasks = JSON.stringify(taskArray);
     localStorage.setItem("tasks", tasks);
     taskDisplay();
@@ -391,13 +457,15 @@ const detailProject = function(projectSelector) {
     let projectParagraph = projectSelector.parentElement.querySelector('.project-title');
     let projDetailTitle = projectParagraph.innerHTML;
 
-    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    let taskArray = JSON.parse(localStorage.getItem("tasks"));
+    if (taskArray != null) {
     for (let i=0; i<taskArray.length; i++) {
         let taskFinder = taskArray[i]["projectName"];
         if (taskFinder == projDetailTitle) {
             x.push(taskArray[i]["title"]);
         }
     }
+}
 
     document.getElementById("task-list").innerHTML = "";
     for (let i=0; i<x.length; i++) {
@@ -412,13 +480,15 @@ const detailProject = function(projectSelector) {
 
 const projectTaskCounter = function(currentProject) {
     let taskNumber = 0;
-    taskArray = JSON.parse(localStorage.getItem("tasks"));
+    let taskArray = JSON.parse(localStorage.getItem("tasks"));
+    if (taskArray != null) {
     for (let i=0; i<taskArray.length; i++) {
         let projFinder = taskArray[i]["projectName"];
         if (projFinder == currentProject) {
            taskNumber++;
         }
     }
+}
     return taskNumber;
 }
 
@@ -444,5 +514,3 @@ const todayPageFull = function() {
 
 activePage("home");
 startUp();
-taskLoad();
-projectLoad();
