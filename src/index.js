@@ -236,7 +236,7 @@ const taskDisplay = function() {
         let elements = document.getElementById('task-div').children;
         elements.item(i).innerHTML +=  `
             <button class="close-task">Delete</button>
-            <p><strong>Task title:</strong> <span class="task-title">${taskTitle}</span></p>
+            <strong><p><span class="task-title">${taskTitle}</span></p></strong>
             <p><strong>Details:</strong> ${taskDetails}</p>
             <p><strong>Due date:</strong> <em>${dateText}</em></p>
             <p><strong>Project:</strong> ${taskProject}</p>
@@ -297,7 +297,7 @@ const projectDisplay = function() {
         let elements = document.getElementById('project-div').children;
         elements.item(i).innerHTML +=  `
         <button class="close-project">Delete</button>
-        <span class="task-number-proj">Number of tasks: ${projectTaskCounter(projectTitle)}</span>
+        <span class="task-number-proj"><strong>Number of tasks:</strong> ${projectTaskCounter(projectTitle)}</span>
         <button class="project-details">Details</button>
         <p><strong>Project title:</strong> <span class="project-title">${projectTitle}</span></p>
         `
@@ -369,7 +369,7 @@ const todayDisplay = function() {
         let elements = document.getElementById('task-div').children;
         elements.item(j).innerHTML +=  `
             <button class="close-task">Delete</button>
-            <p><strong>Task title:</strong> <span class="task-title">${taskTitle}</span></p>
+            <strong><p><span class="task-title">${taskTitle}</span></p></strong>
             <p><strong>Details:</strong> ${taskDetails}</p>
             <p><strong>Due date:</strong> <em>${dateText}</em></p>
             <p><strong>Project:</strong> ${taskProject}</p>
@@ -391,6 +391,7 @@ const removeTask = function(taskSelector) {
     let taskArray = JSON.parse(localStorage.getItem("tasks"))
     let taskParagraph = taskSelector.parentElement.querySelector('.task-title');
     let taskRemoveTitle = taskParagraph.innerHTML;
+
     for (let i=0; i< taskArray.length; i++) {
         let taskTitle = taskArray[i]["title"];
         if (taskTitle == taskRemoveTitle) {

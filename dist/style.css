@@ -4,9 +4,10 @@
   width: max-content;
   border-radius: 5px;
   margin-top: -12px;
-  border: 1px solid black;
+  border: 3px solid;
   padding: 3px;
   padding-right: 6px;
+  color: black;
 }
 
 body, html {
@@ -130,16 +131,23 @@ li:hover {
 }
 
 .task-box {
+  font-family: "Noto Serif Ahom", serif;
+  font-size: 14px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   width: 250px;
   height: 300px;
   overflow: auto;
   margin: 15px;
-  background-color: rgb(255, 240, 248);
-  border: 2px solid black;
+  background-color: rgb(255, 192, 140);
+  border: 1px solid rgb(116, 0, 0);
   border-radius: 10px;
 }
 .task-box p {
   margin-left: 5px;
+}
+
+.task-box:hover {
+  box-shadow: 0px 7px 12px 0px rgba(0, 0, 0, 0.8);
 }
 
 #task-div, #project-div {
@@ -155,10 +163,13 @@ li:hover {
 }
 
 .project-box {
+  font-family: "Noto Serif Ahom", serif;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+  font-size: 14px;
   width: 410px;
   height: 90px;
-  background-color: rgb(255, 240, 248);
-  border: 2px solid black;
+  background-color: rgb(255, 251, 213);
+  border: 2px solid rgb(255, 145, 0);
   margin: 15px;
   border-radius: 10px;
 }
@@ -169,48 +180,58 @@ li:hover {
   margin-left: 100px;
 }
 
+.project-box:hover {
+  box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.5);
+}
+
 .close-task, .close-project {
-  background-color: rgb(255, 78, 78);
-  border: none;
+  font-family: "Noto Serif Ahom", serif;
+  background-color: rgba(255, 78, 78, 0);
+  color: rgb(148, 2, 2);
   border-radius: 30px;
   margin-left: 5px;
   margin-top: 8px;
-  padding: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border: 1px solid white;
+  font-size: 12px;
+  padding-top: 3px;
+  border: 1px solid rgb(148, 2, 2);
+}
+
+.close-project {
+  border: 2px solid rgb(148, 2, 2);
 }
 
 .project-details {
-  background-color: rgb(255, 201, 131);
-  border: none;
+  font-family: "Noto Serif Ahom", serif;
+  background-color: rgba(194, 138, 55, 0);
   border-radius: 30px;
   margin-left: 65px;
   margin-top: 8px;
-  padding: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border: 1px solid white;
+  font-size: 12px;
+  padding-top: 3px;
+  border: 2px solid rgb(179, 107, 0);
+  color: rgb(179, 107, 0);
 }
 
 .close-task:hover, .close-project:hover {
   background-color: rgb(255, 105, 105);
+  color: rgb(255, 218, 218);
 }
 
 .project-details:hover {
-  background-color: rgb(255, 182, 87);
+  background-color: rgb(255, 172, 49);
+  color: white;
 }
 
 #High {
-  background-color: rgb(255, 185, 55);
+  border-color: rgb(255, 74, 74);
 }
 
 #Medium {
-  background-color: rgb(255, 255, 81);
+  border-color: yellow;
 }
 
 #Low {
-  background-color: lightgreen;
+  border-color: rgb(0, 170, 0);
 }
 
 #inbox {
@@ -248,6 +269,7 @@ li:hover {
   width: 290px;
   background-color: rgba(216, 216, 216, 0.9);
   border: 3px solid black;
+  border-radius: 20px;
   transform: translate(-50%, 5%);
   position: fixed;
   left: 55%;
@@ -255,13 +277,32 @@ li:hover {
   z-index: 9;
 }
 #project-tasks h4 {
-  margin-left: 5px;
+  margin-left: 8px;
 }
 #project-tasks button {
+  font-family: "Noto Serif Ahom", serif;
+  background-color: rgba(255, 78, 78, 0);
+  color: black;
+  font-size: 12px;
+  padding-top: 3px;
+  border: 1px solid black;
   position: fixed;
   left: 81%;
-  top: 92%;
+  top: 90%;
   z-index: 9;
+  border-radius: 10px;
+}
+#project-tasks button:hover {
+  background-color: rgb(211, 190, 190);
+}
+
+.task-title {
+  font-size: 18px;
+}
+
+#task-list:hover {
+  color: black;
+  font-weight: 500;
 }
 
 /*# sourceMappingURL=style.css.map */
